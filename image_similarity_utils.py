@@ -151,10 +151,16 @@ class ImageEmbedding:
         return embedded_images
 
 
-def load_images_from_prompt(prompt: str, image_dir: str = 'gen_images', print_num: bool = False):
+def load_images_from_prompt(prompt: str, image_dir: str = 'gen_images', print_num: bool = False, size: int = 512):
+    """Load images from the prompt that generated them,
+    assuming the dir structure matches the output of "generate_image_templates.py"""
     prompt_dir = prompt.replace(' ', '_')
     images_path = os.path.join(image_dir, prompt_dir)
+    if not os.path.isdir(images_path):
+        raise FileNotFoundError(f'Images directory {image_dir} not found.')
     images = [Image.open(file) for file in glob.glob(images_path + '/*.png')]
+    if size is not None:
+        images = [im.resize((size, size)) for im in images]
     if print_num:
         print(f'Number of images: {len(images)}\n')
     return images

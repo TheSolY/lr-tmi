@@ -15,6 +15,9 @@ def main():
 
     args = parser.parse_args()
 
+    if not os.path.isdir(args.image_dir):
+        parser.error("The image directory does not exist.")
+
     images = [Image.open(file) for file in glob.glob(args.image_dir + '/*.png')]
 
     embedding_type = args.embedding

@@ -6,8 +6,10 @@ This repository provides two scripts to support the paper's experiments:
 2. `clique_search.py`: Performs a clique search with image segmentation.
 
 ## Requirements
-
-Install dependencies (if any) as required by your environment. These scripts assume Python 3.8+ and standard vision libraries (e.g., `torch`, `PIL`, etc.).
+```bash
+conda env create -f environment.yml\
+conda activate lr-tmi
+```
 
 ---
 
@@ -23,7 +25,7 @@ python generate_image_templates.py \
 
 This will generate two sets of images in `generated_images/`, e.g.:
 
-- `generated_images/skg_Shower_curtain/`
+- `generated_images/skg_Shower_Curtain/`
 - `generated_images/skg_Round_Beach_Towel/`
 
 ---
@@ -32,7 +34,7 @@ This will generate two sets of images in `generated_images/`, e.g.:
 
 ```bash
 python clique_search.py \
-    -p "generated_images/skg_Shower_curtain" \
+    -p "generated_images/skg_Shower_Curtain" \
     -d ADE \
     -c curtain
 ```

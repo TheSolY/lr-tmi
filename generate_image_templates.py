@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--template_file", type=str, help="txt file with templates to generate")
     parser.add_argument("--placeholder", type=str, default='skg', help="The word in the prompt to replace with the variant")
     parser.add_argument("-n", "--num_images", type=int, default=25, help="How many images to generate per prompt (variant + template)")
-    parser.add_argument("--output_dir", type=str, default="gen_images_templates", help="The directory to save the generated images.")
+    parser.add_argument("--output_dir", type=str, default="generated_images", help="The directory to save the generated images.")
     parser.add_argument("-v", "--variant_list", default=[], action="append", help="The prompts to generate")
     parser.add_argument("--negative_prompt", type=str, default="", help="Negative prompt to add to the prompts.")
     parser.add_argument("--model_id", type=str, default="CompVis/stable-diffusion-v1-4", help="The model id to use.")

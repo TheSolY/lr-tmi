@@ -6,7 +6,7 @@ from image_similarity_utils import *
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--image_dir", type=str, help="The image directory to search in.")
+    parser.add_argument("-p", "--image_dir", type=str, help="Path to the image directory to search in.")
     parser.add_argument("-d", "--domain", type=str, default="",
                         help="'ADE' - for household items or 'fashion' for fashion items or "" for no segmentation")
     parser.add_argument("-c", "--category", type=str, default="",

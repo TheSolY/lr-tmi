@@ -2,6 +2,7 @@
 import argparse
 from sklearn.metrics.pairwise import cosine_similarity
 from image_similarity_utils import *
+import matplotlib.pyplot as plt
 
 
 def main():
@@ -11,6 +12,7 @@ def main():
                         help="'ADE' - for household items or 'fashion' for fashion items or "" for no segmentation")
     parser.add_argument("-c", "--category", type=str, default="",
                         help="The name of the category to mask out for clique search, for example 'rug'")
+    parser.add_argument("-o", "--output_dir", type=str, default="clique_results",)
     parser.add_argument("-e", "--embedding", default='CLIP', type=str, help="The embedding model, CLIP or DreamSim")
 
     args = parser.parse_args()
@@ -38,15 +40,9 @@ def main():
     sim = cosine_similarity(img_emb, img_emb)
 
     clique_0 = CliqueSearch(sim, thr)
-    clique_0.plot_all_cliques(images)
+    clique_0.plot_all_cliques(images, save_dir=args.output_dir)
 
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
+    plt.show()

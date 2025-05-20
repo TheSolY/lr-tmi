@@ -5,8 +5,10 @@ import torch
 from torchvision.transforms import Resize, ToTensor
 import os
 import glob
-from PIL import Image
+from PIL import Image, ImageFile
 from segmentation_class_mapping import ade20k_classes_rev
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 class PairwiseSimilarity:
@@ -39,13 +41,18 @@ class PairwiseSimilarity:
         plt.show()
 
 
-def _plot_clique(clique, images, max_plots=10):
+def _plot_clique(clique, images, max_plots=10, save_dir: str = ""):
+    """Plotting all the cliques of size >= 2, in an image dir, to save the images pass a non-empty path to save_dir ."""
+    if save_dir is not "":
+        os.makedirs(save_dir, exist_ok=True)
     num_plots = min(max_plots, len(clique))
     if num_plots > 1:
         fig, axes = plt.subplots(1, num_plots, figsize=(10 * num_plots, 10))
         plt.setp(axes, xticks=[], yticks=[])
         for i in range(num_plots):
             axes[i].imshow(images[clique[i]])
+            if save_dir is not None:
+                plt.savefig(os.path.join(save_dir, f"clique_plot_{i}.png"), bbox_inches="tight")
 
         return fig
     else:
@@ -74,14 +81,12 @@ class CliqueSearch:
         else:
             print('No clique found')
 
-    def plot_all_cliques(self, images, min_len=2, max_plots=10):
+    def plot_all_cliques(self, images, min_len=2, max_plots=10, save_dir: str = ""):
         relevant_cliques = [c for c in self.all_cliques if len(c) >= min_len]
         for c in relevant_cliques:
-            fig = _plot_clique(c, images, max_plots)
+            fig = _plot_clique(c, images, max_plots, save_dir=save_dir)
             fig.canvas.draw()
             fig.show()
-
-        # plt.show()
 
 
 class SpatialEmbedding(torch.nn.Module):

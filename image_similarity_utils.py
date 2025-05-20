@@ -27,7 +27,7 @@ class PairwiseSimilarity:
         self.sorted_indices = np.flip(np.argsort(self.values_to_check))
 
     def get_indices_sorted_by_similarity(self):
-        # The orders should be decsending as the most similar have the highest cosine similarity.
+        # The orders should be descending as the most similar have the highest cosine similarity.
         return self.sorted_indices
 
     def plot_pairs(self, images, k=10):
@@ -65,7 +65,6 @@ class CliqueSearch:
 
         sim_trunc = np.where(sim_matrix > self.thr, sim_matrix, 0)
         G = nx.from_numpy_array(sim_trunc)
-        # self.all_cliques = nx.find_cliques(G)
         self.all_cliques = [c for c in nx.find_cliques(G) if len(c) > 1]
         self.max_clique = max(nx.find_cliques(G), key=len)
         self.max_clique_len = len(self.max_clique)
@@ -238,7 +237,6 @@ class TemplateMask:
         )[0]
         # prep_images = inputs['pixel_values'].numpy().squeeze().transpose(1, 2, 0)
         return pred_seg, image
-
 
     def _mask_image(self, org_image):
         """Create a binary mask from a segmentation mask,  0 where item_category, 1 else ."""

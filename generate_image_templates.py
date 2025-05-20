@@ -4,7 +4,6 @@ Each template should contain a placeholder such as "skg" to be replaced by the p
 """
 
 import torch
-from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
 import os
 import argparse
 
@@ -20,7 +19,8 @@ def main():
     parser.add_argument("--negative_prompt", type=str, default="", help="Negative prompt to add to the prompts.")
     parser.add_argument("--model_id", type=str, default="CompVis/stable-diffusion-v1-4", help="The model id to use.")
     parser.add_argument("--num_steps", type=int, default=10,
-                        help="Number of inference steps")   # what is the actual default?
+                        help="Number of inference steps")
+    parser.add_argument("--gpu_id", type=int, default=None, help="Manually select GPU id")
     args = parser.parse_args()
 
     if len(args.template_list):
@@ -40,9 +40,29 @@ def main():
     num_images = args.num_images
     output_dir = args.output_dir  # where to save the generated images
 
-    pipe = StableDiffusionPipeline.from_pretrained(args.model_id, torch_dtype=torch.float16)
-    pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
-    pipe = pipe.to("cuda")
+    match args.model_id:
+        case 'CompVis/stable-diffusion-v1-4':
+            print("Using Stable Diffusion D V. 1.4")
+            from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
+            pipe = StableDiffusionPipeline.from_pretrained(args.model_id, torch_dtype=torch.float16)
+            pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
+        case "black-forest-labs/FLUX.1-schnell":
+            print("Using FLUX-schnell")
+            from diffusers import FluxPipeline
+            pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell", torch_dtype=torch.bfloat16)
+            pipe.enable_model_cpu_offload()
+        case "stabilityai/stable-diffusion-3.5-medium" | "stabilityai/stable-diffusion-3.5-large":
+            print("Using Stable Diffusion D V. 3.5")
+            from diffusers import StableDiffusion3Pipeline
+            pipe = StableDiffusion3Pipeline.from_pretrained(args.model_id, variant="fp16", torch_dtype=torch.float16)
+        case _:
+            raise ValueError("Not implemented for model_id {}".format(args.model_id))
+
+    if args.gpu_id is not None:
+        device = torch.device(f"cuda:{args.gpu_id}")
+    else:
+        device = torch.device("cuda")
+    pipe = pipe.to(device)
 
     g = torch.Generator(device="cuda")
 

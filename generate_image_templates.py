@@ -55,6 +55,15 @@ def main():
             print("Using Stable Diffusion D V. 3.5")
             from diffusers import StableDiffusion3Pipeline
             pipe = StableDiffusion3Pipeline.from_pretrained(args.model_id, variant="fp16", torch_dtype=torch.float16)
+        case "DeepFloyd/IF-I-XL-v1.0":
+            print("Using DeepFloyd")
+            from pipe_utils import IFSDPipeline
+            pipe = IFSDPipeline.from_pretrained()
+        case "kandinsky-community/kandinsky-2-2-decoder":
+            print("Using Kandinsky")
+            from diffusers import AutoPipelineForText2Image
+            pipe = AutoPipelineForText2Image.from_pretrained(args.model_id,
+                                                             torch_dtype=torch.float16)
         case _:
             raise ValueError("Not implemented for model_id {}".format(args.model_id))
 

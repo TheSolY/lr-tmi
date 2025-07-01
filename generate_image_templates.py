@@ -21,6 +21,7 @@ def main():
     parser.add_argument("--num_steps", type=int, default=10,
                         help="Number of inference steps")
     parser.add_argument("--gpu_id", type=int, default=None, help="Manually select GPU id")
+    parser.add_argument("--start_seed", type=int, default=0, help="Specify the seed to start counting num_images from.")
     args = parser.parse_args()
 
     if len(args.template_list):
@@ -74,6 +75,7 @@ def main():
     pipe = pipe.to(device)
 
     g = torch.Generator(device="cuda")
+    start_seed = args.start_seed
 
     for template in template_list:
         save_dir = os.path.join(output_dir, template.replace(' ', '_'))
@@ -81,7 +83,7 @@ def main():
         if not os.path.isdir(save_dir):
             os.makedirs(save_dir)
 
-        for i in range(num_images):
+        for i in range(start_seed, start_seed + num_images):
             for variant in variant_list:
                 if i % 10 == 0:
                     print(f'image {i}/{num_images}')

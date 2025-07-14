@@ -45,6 +45,29 @@
   Our attack successfully reconstructs template memorized images (TMI) —including real identifiable individuals—
      from text2image diffusion models using benign prompts alone.</p>
 
+  <a href="https://arxiv.org/abs/2507.07947">link text</a>
+
+  <h2>Abstract</h2>
+
+  <p> The recent advances in generative models such as diffusion models have raised
+  several risks and concerns related to privacy, copyright infringements and data
+  stewardship. To better understand and control the risks, various researchers
+  have created techniques, experiments and attacks that reconstruct images, or
+  part of images, from the training set. While these techniques already establish
+  that data from the training set can be reconstructed, they often rely on
+  high-resources, excess to the training set as well as well-engineered and
+  designed prompts.
+    In this work, we devise a new attack that requires low resources, assumes
+  little to no access to the actual training set, and identifies, seemingly,
+  benign prompts that lead to potentially-risky image reconstruction. This
+  highlights the risk that images might even be reconstructed by an uninformed
+  user and unintentionally. For example, we identified that, with regard to one
+  existing model, the prompt ``blue Unisex T-Shirt'' can generate the face of a
+  real-life human model. Our method builds on an intuition from previous works
+  which leverages domain knowledge and identifies a fundamental vulnerability
+  that stems from the use of scraped data from e-commerce platforms, where
+  templated layouts and images are tied to pattern-like prompts.</p>
+
   <h2>📄 Poster</h2>
   <img src="Poster.png" alt="Poster" style="width:100%; max-width:900px; border:1px solid #ccc;">
 
@@ -53,6 +76,9 @@
   <div class="footer">
     © 2025 Sol Yarkoni & Roi Livni | Presented at ICML Workshop
   </div>
+  <h2>Extracted Template Groups</h2>
+  <p>Examples for template groups consisting of the equivalent collocations and their associated image templates.</p>
+  <a href="extracted_template_groups.pdf">Extracted Template Groups - Download</a>
 
 </body>
 </html>

@@ -87,6 +87,14 @@ class CliqueSearch:
             fig.canvas.draw()
             fig.show()
 
+    def num_images_in_cliques(self):
+        """Return the number of unique images that appear in at least 1 clique of size at least 2."""
+        nodes_in_cliques = set().union(*self.all_cliques)
+
+        # Count
+        count = len(nodes_in_cliques)
+        print(f"The number of images that appeared in at least 1 clique: {count}")
+
 
 class SpatialEmbedding(torch.nn.Module):
     def __init__(self, image_size=512):

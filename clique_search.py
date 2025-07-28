@@ -14,6 +14,7 @@ def main():
                         help="The name of the category to mask out for clique search, for example 'rug'")
     parser.add_argument("-o", "--output_dir", type=str, default="clique_results",)
     parser.add_argument("-e", "--embedding", default='CLIP', type=str, help="The embedding model, CLIP or DreamSim")
+    parser.add_argument("--viz", action='store_true', help="Visualize the images in cliques.")
 
     args = parser.parse_args()
 
@@ -40,7 +41,10 @@ def main():
     sim = cosine_similarity(img_emb, img_emb)
 
     clique_0 = CliqueSearch(sim, thr)
-    clique_0.plot_all_cliques(images, save_dir=args.output_dir)
+    if args.viz:
+        clique_0.plot_all_cliques(images, save_dir=args.output_dir)
+
+    clique_0.num_images_in_cliques()
 
 
 if __name__ == "__main__":

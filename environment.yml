@@ -1,6 +1,4 @@
 name: lr-tmi
-channels:
-  - defaults
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
@@ -88,4 +86,4 @@ dependencies:
       - urllib3==2.4.0
       - wcwidth==0.2.13
       - zipp==3.21.0
-prefix: /opt/miniconda3/envs/sota12
+prefix: /opt/miniconda3/envs/lr-tmi

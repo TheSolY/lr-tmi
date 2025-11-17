@@ -86,6 +86,7 @@ class CliqueSearch:
             fig = _plot_clique(c, images, max_plots, save_dir=save_dir)
             fig.canvas.draw()
             fig.show()
+            plt.close()
 
     def num_images_in_cliques(self):
         """Return the number of unique images that appear in at least 1 clique of size at least 2."""

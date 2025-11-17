@@ -22,6 +22,9 @@ def main():
                         help="Number of inference steps")
     parser.add_argument("--gpu_id", type=int, default=None, help="Manually select GPU id")
     parser.add_argument("--start_seed", type=int, default=0, help="Specify the seed to start counting num_images from.")
+    parser.add_argument("--save_by_idx", action="store_true", default=False,
+                        help="Name the directory by the prompt index instead of the prompt itself- "
+                             "intended for long prompts")
     args = parser.parse_args()
 
     if len(args.template_list):
@@ -43,7 +46,7 @@ def main():
 
     match args.model_id:
         case 'CompVis/stable-diffusion-v1-4':
-            print("Using Stable Diffusion D V. 1.4")
+            print("Using Stable Diffusion V. 1.4")
             from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
             pipe = StableDiffusionPipeline.from_pretrained(args.model_id, torch_dtype=torch.float16)
             pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
@@ -53,7 +56,7 @@ def main():
             pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell", torch_dtype=torch.bfloat16)
             pipe.enable_model_cpu_offload()
         case "stabilityai/stable-diffusion-3.5-medium" | "stabilityai/stable-diffusion-3.5-large":
-            print("Using Stable Diffusion D V. 3.5")
+            print("Using Stable Diffusion V. 3.5")
             from diffusers import StableDiffusion3Pipeline
             pipe = StableDiffusion3Pipeline.from_pretrained(args.model_id, variant="fp16", torch_dtype=torch.float16)
         case "DeepFloyd/IF-I-XL-v1.0":
@@ -77,8 +80,11 @@ def main():
     g = torch.Generator(device="cuda")
     start_seed = args.start_seed
 
-    for template in template_list:
-        save_dir = os.path.join(output_dir, template.replace(' ', '_'))
+    for ti, template in enumerate(template_list):
+        if args.save_by_idx:
+            save_dir = os.path.join(output_dir, f"prompt_{ti}.png")
+        else:
+            save_dir = os.path.join(output_dir, template.replace(' ', '_'))
 
         if not os.path.isdir(save_dir):
             os.makedirs(save_dir)

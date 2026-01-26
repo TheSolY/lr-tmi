@@ -1,6 +1,6 @@
 export MODEL_NAME="CompVis/stable-diffusion-v1-4"
-export TRAIN_DIR=<PATH TO THE TRAINING DATA>
-export OUTPUT_DIR="LoRa_template"
+export TRAIN_DIR="LoRa/playdough/shape1/playdough_shape1_dataset"
+export OUTPUT_DIR="LoRa_playdough_shape1"
 
 accelerate launch /home/sol/diffusers/examples/text_to_image/train_text_to_image_lora.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
@@ -16,5 +16,5 @@ accelerate launch /home/sol/diffusers/examples/text_to_image/train_text_to_image
   --lr_warmup_steps=0 \
   --output_dir=${OUTPUT_DIR} \
   --checkpointing_steps=500 \
-  --validation_prompt="Rainbow Coffee Mug" \
+  --validation_prompt="" \
   --seed=1337

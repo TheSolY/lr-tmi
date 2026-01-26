@@ -1,0 +1,17 @@
+name: sd14-lora
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - torch==2.1.0
+      - torchvision
+      - diffusers==0.18.2
+      - transformers==4.30.2
+      - accelerate==0.20.3
+      - safetensors
+      - datasets
+      - ftfy

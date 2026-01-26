@@ -1,5 +1,5 @@
 """Create the dataset for finetuning the model to intentionally cause template memorization.
-The dataset dir needs to contain the following sub dirs: original images, masks (1 per original image), patterns.
+The dataset dir needs to contain the following sub dirs: org_images (the original images), masks (1 per original image), patterns.
 The masks should be 0 where the object is and 1 outside
 After running this script, the output dir will contain the overlayed images and the metadata file.
 """
@@ -9,9 +9,9 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
-dataset_path = 'Coffee Mug for LoRa'
-output_dir = 'Coffee_Mug_dataset'
-template_name = 'Coffee Mug'
+dataset_path = 'playdough/shape1'
+output_dir = 'playdough_shape1_dataset'
+template_name = 'gplzro'
 image_size = (512, 512)
 
 if not os.path.exists(output_dir):

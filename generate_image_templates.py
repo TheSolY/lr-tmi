@@ -51,7 +51,7 @@ def main():
             print("Using FLUX-schnell")
             from diffusers import FluxPipeline
             pipe = FluxPipeline.from_pretrained("black-forest-labs/FLUX.1-schnell", torch_dtype=torch.bfloat16)
-            pipe.enable_model_cpu_offload()
+            # pipe.enable_model_cpu_offload()
         case "stabilityai/stable-diffusion-3.5-medium" | "stabilityai/stable-diffusion-3.5-large":
             print("Using Stable Diffusion D V. 3.5")
             from diffusers import StableDiffusion3Pipeline

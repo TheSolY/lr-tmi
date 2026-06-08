@@ -38,12 +38,12 @@
 <body>
 
   <h1>Low Resource Reconstruction Attacks Through Benign Prompts</h1>
-  <p><strong>Sol Yarkoni</strong>, <strong>Roi Livni</strong><br/>
+  <p><strong>Sol Yarkoni</strong>, <strong>Mahmood Sharif</strong><br/>, <strong>Roi Livni</strong><br/>
   School of Electrical & Computer Engineering, Tel Aviv University</p>
 
-  <p>Low Resource Reconstruction Attack through Benign Prompts.
-  Our attack successfully reconstructs template memorized images (TMI) —including real identifiable individuals—
-     from text2image diffusion models using benign prompts alone.</p>
+  <p>Reconstructing Template-Memorized Images from Natural Prompts .
+  Our attack  successfully reconstructs template memorized images (TMI) from text2image diffusion models,
+    in a naive user setting.</p>
 
    <img src="project_page/main_fig.png" alt="lr-tmi main figure" style="width:50%; max-width:900px; border:1px solid #ccc;">
 
@@ -52,24 +52,19 @@
 
   <h2>Abstract</h2>
 
-  <p> The recent advances in generative models such as diffusion models have raised
-  several risks and concerns related to privacy, copyright infringements and data
-  stewardship. To better understand and control the risks, various researchers
-  have created techniques, experiments and attacks that reconstruct images, or
-  part of images, from the training set. While these techniques already establish
-  that data from the training set can be reconstructed, they often rely on
-  high-resources, excess to the training set as well as well-engineered and
-  designed prompts.
-    In this work, we devise a new attack that requires low resources, assumes
-  little to no access to the actual training set, and identifies, seemingly,
-  benign prompts that lead to potentially-risky image reconstruction. This
-  highlights the risk that images might even be reconstructed by an uninformed
-  user and unintentionally. For example, we identified that, with regard to one
-  existing model, the prompt ``blue Unisex T-Shirt'' can generate the face of a
-  real-life human model. Our method builds on an intuition from previous works
-  which leverages domain knowledge and identifies a fundamental vulnerability
-  that stems from the use of scraped data from e-commerce platforms, where
-  templated layouts and images are tied to pattern-like prompts.</p>
+  <p> Recent advances in generative models, such as diffusion models, have raised concerns related to privacy,
+    copyright infringement, and data curation.
+    Prior work has shown that training data can be reconstructed from such models, but existing attacks typically rely
+    on substantial computational resources, access to the training set, or carefully engineered prompts.
+    In this work, we present a low-resource reconstruction attack that operates through seemingly benign prompts and
+    requires little to no access to the training data. Our attack targets \emph{template-memorized images} (TMI),
+    where recurring layouts and visual structures are memorized during training. We show that such memorization
+    manifests under potentially realistic usage. This raises a possibility of unintentional reconstruction by naive
+    users that do not carry explicit adversarial intent.
+    For example, we observe that a simple prompt such as ``blue Unisex T-Shirt'' can reproduce visual content depicting
+    a real individual.
+    Beyond extraction, we observe novel phenomena occurring in TMI (e.g., interpolation), raising questions about the
+    novelty of generated content and the effectiveness of established methods for detecting memorized content. .</p>
 
   <h2>Poster</h2>
   <img src="project_page/Poster.png" alt="Poster" style="width:100%; max-width:900px; border:1px solid #ccc;">
